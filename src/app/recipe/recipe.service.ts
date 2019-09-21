@@ -59,14 +59,14 @@ export class RecipeService {
     }
 
     addRecipe(recipe: Recipe) {
-        recipe.id = this.recipes.length;
+        recipe.id = Date.now(); // to generate unique timestamp number as id
         this.recipes.push(recipe)
         this.recipesChanged.next(this.recipes.slice())
     }
 
-    updateRecipe(index: number, newRecipe: Recipe) {
-        newRecipe.id = index;
-        this.recipes[index] = newRecipe;
+    updateRecipe(id: number, newRecipe: Recipe) {
+        newRecipe.id = id;
+        this.recipes[this.recipes.findIndex(el => el.id === id)] = newRecipe;
         this.recipesChanged.next(this.recipes.slice())
     }
 
